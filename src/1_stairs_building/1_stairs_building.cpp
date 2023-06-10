@@ -2,12 +2,18 @@
 
 int main(int argc, char** argv) {
   unsigned int blocks = 0;
+  // чтение из stdin:
   if (argc == 1) {
-    scanf("%ud", &blocks);
+    scanf("%u", &blocks);
+  // чтение из файла:
   } else {
     FILE* fp = fopen(argv[1], "r");
-    blocks = fgetc(fp);
+    char ch;
+    while ((ch = fgetc(fp)) != EOF && ch != '\n')
+      blocks = blocks * 10 + ch - 48;
+    fclose(fp);
   }
+  // основной алгоритм: 
   int i = 0;
   while (i < blocks) {
     i++;
